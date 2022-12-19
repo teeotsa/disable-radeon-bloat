@@ -26,6 +26,9 @@ If (($Software | Measure-Object).Count -gt 0)
     $Software.Uninstall() | Out-Null
 }
 
+# Disable Scheduled Tasks
+Get-ScheduledTask -TaskName AMDInstallLauncher, ModifyLinkUpdate, StartCN, StartCNBM -ErrorAction SilentlyContinue | Disable-ScheduledTask | Out-Null
+
 # Disable Auto Updates & AMD Tweaks
 Set-ItemProperty -Path "HKCU:\SOFTWARE\AMD\CN" -Name 'AutoUpdate' -Value 0 -Force -ErrorAction SilentlyContinue | Out-Null
 Set-ItemProperty -Path "HKCU:\SOFTWARE\AMD\CN" -Name 'AutoDownload' -Value 0 -Force -ErrorAction SilentlyContinue | Out-Null
